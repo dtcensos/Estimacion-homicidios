@@ -1,5 +1,26 @@
+# ============================================
+# Autora:     Maria Juliana Duran
+# Dependencia: DCD
+# Maintainer: 
+# Dependencia: 
+# Versión R:   4.3.0
+# ============================================
+
+# ----- setup
 library(pacman)
-pacman::p_load(arrow, dplyr, purrr, ggplot2)
+pacman::p_load(dplyr, LCMCR, here, arrow, rlang, purrr, tidyr, verdata, stringr, ggplot2)
+
+parser <- ArgumentParser()
+parser$add_argument("--estimaciones",
+                    default = here::here("input/estimaciones"))
+parser$add_argument("--output",
+                    default = here::here("output/"))
+
+args <- parser$parse_args()
+
+
+library(pacman)
+pacman::p_load(arrow, dplyr, purrr, ggplot2, tidyr)
 
 # ------ Functions
 
@@ -52,6 +73,7 @@ agrupada <- tabla %>%
 
 estratos <- as.vector(unique(agrupada$stratum_name))
 
-result9 <- purrr::map(estratos, distribucion)
+result <- purrr::map(estratos, distribucion)
+
  
 
