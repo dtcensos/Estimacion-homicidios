@@ -6,7 +6,17 @@
 # Versión R:   4.3.0
 # ============================================
 
+# ----- setup
+library(pacman)
 pacman::p_load(dplyr, LCMCR, here, arrow, rlang, purrr, tidyr, verdata, stringr, ggplot2)
+
+parser <- ArgumentParser()
+parser$add_argument("--estimaciones",
+                    default = here::here("input/estimaciones"))
+parser$add_argument("--output",
+                    default = here::here("output/"))
+
+args <- parser$parse_args()
 
 # --- Funciones
 
@@ -58,6 +68,6 @@ estimacion <- purrr::map2_dfr(.x = stratum10$strata_data,
 finish <- Sys.time()
 total_time <- round(finish - start, 2)
 
-write_parquet(estimacion, "~/Documents/prueba/401-501.parquet")
+write_parquet(estimacion, paste(args$output, "401-501.parquet"))
 
 # done

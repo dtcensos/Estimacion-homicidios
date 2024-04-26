@@ -1,4 +1,26 @@
-estimacion <- read_parquet("~/Documents/prueba/11805_12305.parquet")
+# ============================================
+# Autora:     Maria Juliana Duran
+# Dependencia: DCD
+# Maintainer: 
+# Dependencia: 
+# Versión R:   4.3.0
+# ============================================
+
+# ----- setup
+library(pacman)
+pacman::p_load(here, dplyr, arrow, argparse, ggplot2, purrr)
+
+parser <- ArgumentParser()
+parser$add_argument("--estimaciones",
+                    default = here::here("input/estimaciones"))
+parser$add_argument("--output",
+                    default = here::here("output/final.parquet"))
+
+args <- parser$parse_args()
+
+# ----------- main
+
+estimacion <- read_parquet(args$estimaciones)
 
 estimacion <- estimacion %>% 
   mutate(stratum_name = paste(pull(stratum_name, 1),
