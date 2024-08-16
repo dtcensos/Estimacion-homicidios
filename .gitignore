@@ -1,0 +1,3 @@
+# ignorar input y output de estimacion
+estimacion/input/
+estimacion/output/
